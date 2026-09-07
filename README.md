@@ -6,7 +6,7 @@ The app uses the native Windows `SetProcessWorkingSetSize(process.Handle, -1, -1
 
 ## Screenshot
 
-![Keep It Digital RAM Limiter preview](Screenshots/app-preview.png)
+![Keep It Digital RAM Limiter preview](Screenshots/app-previewreal.png)
 
 ## Download
 
