@@ -1,0 +1,6 @@
+{
+  "version": "1.1.0",
+  "changelog": "Added automatic update checks at startup.\nAdded a Check for updates button in the app settings area.\nAdded a secure update window with release notes, download progress, SHA-256 verification, installation, and automatic restart.\nPreserved startup preferences and user data during updates.\nAdded a standalone executable, Windows installer, Start Menu shortcut, and Windows Search integration.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.1.0/Keep-It-Digital-Discord-RAM-Limiter-Setup.exe",
+  "sha256": "461B99DBB7AD682843EA7E44F2FC97DB57321E44C5066DA5A1CE9EAE3E26108F"
+}
