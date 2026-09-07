@@ -12,4 +12,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DefaultItemExcludes>$(DefaultItemExcludes);bin\**;obj\**;artifacts\**;publish\**</DefaultItemExcludes>
   </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\administrator-panel.gif" />
+  </ItemGroup>
 </Project>

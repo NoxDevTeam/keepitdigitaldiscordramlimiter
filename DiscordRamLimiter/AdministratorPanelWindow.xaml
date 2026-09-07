@@ -1,0 +1,16 @@
+<Window x:Class="DiscordRamLimiter.AdministratorPanelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        Title="Administrator Panel"
+        Width="360"
+        Height="340"
+        MinWidth="360"
+        MinHeight="340"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="Black">
+    <Grid Background="Black">
+        <wfi:WindowsFormsHost x:Name="GifHost" />
+    </Grid>
+</Window>

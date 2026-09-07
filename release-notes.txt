@@ -1,5 +1,1 @@
-Added automatic update checks at startup.
-Added a Check for updates button in the app settings area.
-Added a secure update window with release notes, download progress, SHA-256 verification, installation, and automatic restart.
-Preserved startup preferences and user data during updates.
-Added a standalone executable, Windows installer, Start Menu shortcut, and Windows Search integration.
+Added the Administrator Panel troll button and animated GIF window.

@@ -29,6 +29,7 @@ public partial class MainWindow : Window, IDisposable
     private readonly Drawing.Icon? _customTrayIcon;
     private readonly bool _startMinimized;
     private readonly Forms.ToolStripMenuItem _startupMenuItem;
+    private AdministratorPanelWindow? _administratorPanelWindow;
     private bool _isExitRequested;
     private bool _isMinimizingToTray;
     private bool _isCheckingForUpdates;
@@ -237,6 +238,23 @@ public partial class MainWindow : Window, IDisposable
     private async void CheckForUpdatesButton_Click(object sender, RoutedEventArgs e)
     {
         await CheckForUpdatesAsync(showNoUpdateMessage: true);
+    }
+
+    [SupportedOSPlatform("windows6.1")]
+    private void AdministratorPanelButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_administratorPanelWindow is { IsVisible: true })
+        {
+            _administratorPanelWindow.Activate();
+            return;
+        }
+
+        _administratorPanelWindow = new AdministratorPanelWindow
+        {
+            Owner = this
+        };
+        _administratorPanelWindow.Closed += (_, _) => _administratorPanelWindow = null;
+        _administratorPanelWindow.Show();
     }
 
     private async Task CheckForUpdatesAsync(bool showNoUpdateMessage)

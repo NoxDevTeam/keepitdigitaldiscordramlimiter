@@ -347,11 +347,19 @@
                               Click="AutoStartCheckBox_Click"
                               Style="{StaticResource RoundCheckBoxStyle}"
                               HorizontalAlignment="Center" />
-                    <Button x:Name="CheckForUpdatesButton"
-                            Margin="0,10,0,0"
-                            Content="Check for updates"
-                            Click="CheckForUpdatesButton_Click"
-                            Style="{StaticResource SettingsButtonStyle}" />
+                    <StackPanel Margin="0,10,0,0"
+                                Orientation="Horizontal">
+                        <Button x:Name="CheckForUpdatesButton"
+                                Width="138"
+                                Content="Check for updates"
+                                Click="CheckForUpdatesButton_Click"
+                                Style="{StaticResource SettingsButtonStyle}" />
+                        <Button Width="138"
+                                Margin="10,0,0,0"
+                                Content="Administrator Panel"
+                                Click="AdministratorPanelButton_Click"
+                                Style="{StaticResource SettingsButtonStyle}" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Grid>
