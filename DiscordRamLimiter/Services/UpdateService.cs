@@ -26,7 +26,7 @@ public sealed partial class UpdateService
     private static string UpdateCacheDirectory => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Keep It Digital",
-        "Discord RAM Limiter",
+        "RAM Limiter",
         "UpdateCache");
 
     public bool IsConfigured =>
@@ -231,7 +231,7 @@ public sealed partial class UpdateService
             Timeout = Timeout.InfiniteTimeSpan
         };
         var version = GetCurrentVersion();
-        client.DefaultRequestHeaders.UserAgent.ParseAdd($"KeepItDigitalDiscordRamLimiter/{version.Major}.{version.Minor}");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd($"KeepItDigitalRamLimiter/{version.Major}.{version.Minor}");
         return client;
     }
 

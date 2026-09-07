@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Bir bütünleştirilmiş koda ilişkin Genel Bilgiler aşağıdaki öznitelikler kümesiyle
 // denetlenir. Bütünleştirilmiş kod ile ilişkili bilgileri değiştirmek için
 // bu öznitelik değerlerini değiştirin.
-[assembly: AssemblyTitle("Keep It Digital Discord RAM Limiter")]
-[assembly: AssemblyDescription("A lightweight Discord memory working-set limiter.")]
+[assembly: AssemblyTitle("Keep It Digital RAM Limiter")]
+[assembly: AssemblyDescription("A lightweight Discord, Spotify, and Google Chrome memory working-set limiter.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Keep It Digital")]
-[assembly: AssemblyProduct("Keep It Digital Discord RAM Limiter")]
+[assembly: AssemblyProduct("Keep It Digital RAM Limiter")]
 [assembly: AssemblyCopyright("Copyright © 2026 Keep It Digital")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Tüm değerleri belirtebilir veya varsayılan Derleme ve Düzeltme Numaralarını kullanmak için
 // aşağıda gösterildiği gibi '*' kullanabilirsiniz:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.1.0")]
-[assembly: AssemblyFileVersion("1.1.1.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

@@ -1,19 +1,19 @@
-# Keep It Digital Discord RAM Limiter
+# Keep It Digital RAM Limiter
 
-Keep It Digital Discord RAM Limiter is a small Windows desktop app that monitors Discord memory usage and can trim Discord's working set while it runs in the background.
+Keep It Digital RAM Limiter is a small Windows desktop app that monitors Discord, Spotify, and Google Chrome memory usage and can trim their working sets while it runs in the background.
 
-The app uses the native Windows `SetProcessWorkingSetSize(process.Handle, -1, -1)` call on detected Discord processes when the limiter is enabled.
+The app uses the native Windows `SetProcessWorkingSetSize(process.Handle, -1, -1)` call on detected Discord, Spotify, and Google Chrome processes when the limiter is enabled.
 
 ## Screenshot
 
-![Keep It Digital Discord RAM Limiter preview](Screenshots/app-preview.png)
+![Keep It Digital RAM Limiter preview](Screenshots/app-preview.png)
 
 ## Download
 
 Release builds are created in the `dist` folder:
 
-- `Keep-It-Digital-Discord-RAM-Limiter-Setup.exe` — recommended Windows installer.
-- `KeepItDigitalDiscordRamLimiter.exe` — portable standalone application.
+- `Keep-It-Digital-RAM-Limiter-Setup.exe` — recommended Windows installer.
+- `KeepItDigitalRamLimiter.exe` — portable standalone application.
 - `update.json` — small update manifest used by installed copies of the app.
 
 The installer needs no administrator access. It creates a Start Menu shortcut so the app appears in Windows Search, and its startup option is enabled by default.
@@ -27,8 +27,8 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 ## Features
 
 - Modern WPF desktop interface.
-- Live Discord RAM usage display.
-- Discord process count display.
+- Live combined Discord, Spotify, and Google Chrome RAM usage display.
+- Separate Discord, Spotify, and Chrome process counts.
 - Animated ON/OFF limiter switch.
 - Safe background monitor loop with cleanup on exit.
 - Minimize-to-tray behavior.
@@ -38,9 +38,9 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 - Start Menu and Windows Search integration through the installer.
 - Automatic update check at startup and a manual `Check for updates` button.
 - SHA-256 and embedded-version verification before any downloaded installer is opened.
-- Supports Discord Stable, Canary, PTB, and Development process names.
+- Supports Discord Stable, Canary, PTB, Development, Spotify, and Google Chrome process names.
 
-## Supported Discord Processes
+## Supported Processes
 
 The limiter looks for these process names:
 
@@ -49,6 +49,8 @@ Discord
 DiscordCanary
 DiscordPTB
 DiscordDevelopment
+Spotify
+chrome
 ```
 
 ## Requirements
@@ -90,8 +92,8 @@ winget install --id JRSoftware.InnoSetup --exact
 The `dist` folder will contain:
 
 ```text
-Keep-It-Digital-Discord-RAM-Limiter-Setup.exe
-KeepItDigitalDiscordRamLimiter.exe
+Keep-It-Digital-RAM-Limiter-Setup.exe
+KeepItDigitalRamLimiter.exe
 update.json
 ```
 
@@ -104,17 +106,17 @@ For each new release:
 1. Increase the assembly and file versions in `DiscordRamLimiter/Properties/AssemblyInfo.cs`. The release script reads this version automatically.
 2. Replace the text in `release-notes.txt` with that version's release notes.
 3. Run `build-release.ps1` with the HTTPS folder that will contain the files.
-4. Upload `Keep-It-Digital-Discord-RAM-Limiter-Setup.exe` first.
-5. Upload `KeepItDigitalDiscordRamLimiter.exe` if you want to offer the portable download.
+4. Upload `Keep-It-Digital-RAM-Limiter-Setup.exe` first.
+5. Upload `KeepItDigitalRamLimiter.exe` if you want to offer the portable download.
 6. Upload `update.json` last. Uploading the manifest last prevents clients from seeing an installer that is not online yet.
 
 The updater only requires the setup executable and `update.json`. The portable executable is optional for the update system, but useful as a separate download.
 
 ## Disclaimer
 
-This project is not affiliated with Discord.
+This project is not affiliated with Discord, Spotify, or Google.
 
-Use at your own risk. Trimming process working sets may affect Discord performance or stability, and Windows may restore memory usage as Discord continues running.
+Use at your own risk. Trimming process working sets may affect Discord, Spotify, or Chrome performance or stability, and Windows may restore memory usage as an app continues running.
 
 ## License
 

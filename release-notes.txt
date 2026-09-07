@@ -1,1 +1,3 @@
-Added the Administrator Panel troll button and animated GIF window.
+Renamed the app to Keep It Digital RAM Limiter.
+Added Spotify and Google Chrome process detection and RAM working-set limiting alongside Discord.
+Added separate live Discord, Spotify, and Chrome process counts.

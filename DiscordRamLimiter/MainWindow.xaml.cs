@@ -76,12 +76,7 @@ public partial class MainWindow : Window, IDisposable
         {
             CurrentRamText.Text = FormatBytes(snapshot.CurrentWorkingSetBytes);
 
-            ProcessCountText.Text = snapshot.ProcessCount switch
-            {
-                0 => "No Discord process",
-                1 => "1 Discord process",
-                _ => $"{snapshot.ProcessCount} Discord processes"
-            };
+            ProcessCountText.Text = $"Discord: {snapshot.DiscordProcessCount}  •  Spotify: {snapshot.SpotifyProcessCount}  •  Chrome: {snapshot.ChromeProcessCount}";
 
             UpdateStatus(snapshot.IsLimiterActive);
         });
@@ -174,7 +169,7 @@ public partial class MainWindow : Window, IDisposable
 
         var notifyIcon = new Forms.NotifyIcon
         {
-            Text = "Keep It Digital Discord RAM Limiter",
+            Text = "Keep It Digital RAM Limiter",
             Icon = trayIcon ?? Drawing.SystemIcons.Application,
             ContextMenuStrip = menu,
             Visible = true
@@ -229,7 +224,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void ShowStartupError()
     {
-        _trayIcon.BalloonTipTitle = "Keep It Digital Discord RAM Limiter";
+        _trayIcon.BalloonTipTitle = "Keep It Digital RAM Limiter";
         _trayIcon.BalloonTipText = "Could not update Windows startup settings.";
         _trayIcon.BalloonTipIcon = Forms.ToolTipIcon.Warning;
         _trayIcon.ShowBalloonTip(2200);
@@ -271,7 +266,7 @@ public partial class MainWindow : Window, IDisposable
                 System.Windows.MessageBox.Show(
                     this,
                     "Update checking is ready, but the public update.json URL must be configured before release.",
-                    "Keep It Digital Discord RAM Limiter",
+                    "Keep It Digital RAM Limiter",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -304,7 +299,7 @@ public partial class MainWindow : Window, IDisposable
                 System.Windows.MessageBox.Show(
                     this,
                     $"You already have the latest version ({FormatVersion(update.CurrentVersion)}).",
-                    "Keep It Digital Discord RAM Limiter",
+                    "Keep It Digital RAM Limiter",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -316,7 +311,7 @@ public partial class MainWindow : Window, IDisposable
                 System.Windows.MessageBox.Show(
                     this,
                     $"Could not check for updates.\n\n{exception.Message}",
-                    "Keep It Digital Discord RAM Limiter",
+                    "Keep It Digital RAM Limiter",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
             }
@@ -512,7 +507,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void ShowTrayNotification()
     {
-        _trayIcon.BalloonTipTitle = "Keep It Digital Discord RAM Limiter";
+        _trayIcon.BalloonTipTitle = "Keep It Digital RAM Limiter";
         _trayIcon.BalloonTipText = "Still running in the system tray.";
         _trayIcon.BalloonTipIcon = Forms.ToolTipIcon.Info;
         _trayIcon.ShowBalloonTip(2200);

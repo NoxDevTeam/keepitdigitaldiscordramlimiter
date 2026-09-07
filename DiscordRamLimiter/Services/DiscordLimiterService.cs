@@ -8,12 +8,14 @@ public sealed class DiscordLimiterService : IDisposable
 {
     private static readonly TimeSpan MonitorInterval = TimeSpan.FromMilliseconds(1500);
     private static readonly TimeSpan PostTrimRefreshDelay = TimeSpan.FromMilliseconds(180);
-    private static readonly string[] DiscordProcessNames =
+    private static readonly (string ProcessName, TrackedApp App)[] TrackedProcessNames =
     [
-        "Discord",
-        "DiscordCanary",
-        "DiscordPTB",
-        "DiscordDevelopment"
+        ("Discord", TrackedApp.Discord),
+        ("DiscordCanary", TrackedApp.Discord),
+        ("DiscordPTB", TrackedApp.Discord),
+        ("DiscordDevelopment", TrackedApp.Discord),
+        ("Spotify", TrackedApp.Spotify),
+        ("chrome", TrackedApp.Chrome)
     ];
 
     private CancellationTokenSource? _monitorCancellation;
@@ -38,7 +40,7 @@ public sealed class DiscordLimiterService : IDisposable
             return Task.CompletedTask;
         }
 
-        _initialWorkingSetBytes ??= GetTotalDiscordWorkingSetBytes(out _);
+        _initialWorkingSetBytes ??= GetTotalTrackedWorkingSetBytes(out _, out _, out _, out _);
         _monitorCancellation = new CancellationTokenSource();
         _monitorTask = MonitorLoopAsync(_monitorCancellation.Token);
         return Task.CompletedTask;
@@ -77,13 +79,14 @@ public sealed class DiscordLimiterService : IDisposable
         IsLimiterActive = isActive;
     }
 
-    public int GetLargestDiscordProcessId()
+    public int GetLargestTrackedProcessId()
     {
         var largestProcessId = -1;
         long largestWorkingSetBytes = -1;
 
-        foreach (var process in GetDiscordProcesses())
+        foreach (var trackedProcess in GetTrackedProcesses())
         {
+            var process = trackedProcess.Process;
             try
             {
                 var workingSetBytes = SafeWorkingSet(process);
@@ -109,14 +112,22 @@ public sealed class DiscordLimiterService : IDisposable
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            var beforeBytes = GetTotalDiscordWorkingSetBytes(out var processCount);
+            var beforeBytes = GetTotalTrackedWorkingSetBytes(
+                out var processCount,
+                out var discordProcessCount,
+                out var spotifyProcessCount,
+                out var chromeProcessCount);
 
             if (IsLimiterActive && processCount > 0)
             {
-                LimitDiscordMemory();
+                LimitTrackedMemory();
 
                 await Task.Delay(PostTrimRefreshDelay, cancellationToken);
-                beforeBytes = GetTotalDiscordWorkingSetBytes(out processCount);
+                beforeBytes = GetTotalTrackedWorkingSetBytes(
+                    out processCount,
+                    out discordProcessCount,
+                    out spotifyProcessCount,
+                    out chromeProcessCount);
             }
 
             SnapshotUpdated?.Invoke(
@@ -125,6 +136,9 @@ public sealed class DiscordLimiterService : IDisposable
                     beforeBytes,
                     _initialWorkingSetBytes ?? 0,
                     processCount,
+                    discordProcessCount,
+                    spotifyProcessCount,
+                    chromeProcessCount,
                     IsLimiterActive,
                     DateTimeOffset.Now));
 
@@ -132,10 +146,11 @@ public sealed class DiscordLimiterService : IDisposable
         }
     }
 
-    private static void LimitDiscordMemory()
+    private static void LimitTrackedMemory()
     {
-        foreach (var process in GetDiscordProcesses())
+        foreach (var trackedProcess in GetTrackedProcesses())
         {
+            var process = trackedProcess.Process;
             try
             {
                 SetProcessWorkingSetSize(process.Handle, new IntPtr(-1), new IntPtr(-1));
@@ -156,17 +171,38 @@ public sealed class DiscordLimiterService : IDisposable
         }
     }
 
-    private static long GetTotalDiscordWorkingSetBytes(out int processCount)
+    private static long GetTotalTrackedWorkingSetBytes(
+        out int processCount,
+        out int discordProcessCount,
+        out int spotifyProcessCount,
+        out int chromeProcessCount)
     {
         long totalBytes = 0;
         processCount = 0;
+        discordProcessCount = 0;
+        spotifyProcessCount = 0;
+        chromeProcessCount = 0;
 
-        foreach (var process in GetDiscordProcesses())
+        foreach (var trackedProcess in GetTrackedProcesses())
         {
+            var process = trackedProcess.Process;
             try
             {
                 totalBytes += process.WorkingSet64;
                 processCount++;
+
+                if (trackedProcess.App == TrackedApp.Discord)
+                {
+                    discordProcessCount++;
+                }
+                else if (trackedProcess.App == TrackedApp.Spotify)
+                {
+                    spotifyProcessCount++;
+                }
+                else
+                {
+                    chromeProcessCount++;
+                }
             }
             catch (InvalidOperationException)
             {
@@ -180,9 +216,9 @@ public sealed class DiscordLimiterService : IDisposable
         return totalBytes;
     }
 
-    private static IEnumerable<Process> GetDiscordProcesses()
+    private static IEnumerable<TrackedProcess> GetTrackedProcesses()
     {
-        foreach (var processName in DiscordProcessNames)
+        foreach (var (processName, app) in TrackedProcessNames)
         {
             Process[] processes;
 
@@ -197,7 +233,7 @@ public sealed class DiscordLimiterService : IDisposable
 
             foreach (var process in processes)
             {
-                yield return process;
+                yield return new TrackedProcess(process, app);
             }
         }
     }
@@ -213,6 +249,15 @@ public sealed class DiscordLimiterService : IDisposable
             return 0;
         }
     }
+
+    private enum TrackedApp
+    {
+        Discord,
+        Spotify,
+        Chrome
+    }
+
+    private readonly record struct TrackedProcess(Process Process, TrackedApp App);
 
     public void Dispose()
     {

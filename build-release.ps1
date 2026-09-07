@@ -7,11 +7,11 @@ $ErrorActionPreference = 'Stop'
 
 $projectRoot = $PSScriptRoot
 $projectFile = Join-Path $projectRoot 'DiscordRamLimiter\DiscordRamLimiter.csproj'
-$publishDirectory = Join-Path $projectRoot 'publish\KeepItDigitalDiscordRamLimiter-win-x64'
+$publishDirectory = Join-Path $projectRoot 'publish\KeepItDigitalRamLimiter-win-x64'
 $distributionDirectory = Join-Path $projectRoot 'dist'
 $installerScript = Join-Path $projectRoot 'installer\KeepItDigitalDiscordRamLimiter.iss'
-$standaloneExecutable = 'KeepItDigitalDiscordRamLimiter.exe'
-$setupExecutable = 'Keep-It-Digital-Discord-RAM-Limiter-Setup.exe'
+$standaloneExecutable = 'KeepItDigitalRamLimiter.exe'
+$setupExecutable = 'Keep-It-Digital-RAM-Limiter-Setup.exe'
 $releaseNotesFile = Join-Path $projectRoot 'release-notes.txt'
 
 foreach ($outputDirectory in @($publishDirectory, $distributionDirectory)) {

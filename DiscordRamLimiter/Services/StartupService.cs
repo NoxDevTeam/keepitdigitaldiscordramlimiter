@@ -11,8 +11,12 @@ public static class StartupService
     public const string MinimizedArgument = "--minimized";
 
     private const string RunKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    private const string RunValueName = "KeepItDigitalDiscordRamLimiter";
-    private const string LegacyRunValueName = "DiscordRamLimiter";
+    private const string RunValueName = "KeepItDigitalRamLimiter";
+    private static readonly string[] LegacyRunValueNames =
+    [
+        "DiscordRamLimiter",
+        "KeepItDigitalDiscordRamLimiter"
+    ];
 
     public static bool IsLaunchAtStartupEnabled()
     {
@@ -27,13 +31,21 @@ public static class StartupService
 
         if (isEnabled)
         {
-            key.DeleteValue(LegacyRunValueName, throwOnMissingValue: false);
+            DeleteLegacyValues(key);
             key.SetValue(RunValueName, GetStartupCommand(), RegistryValueKind.String);
             return;
         }
 
         key.DeleteValue(RunValueName, throwOnMissingValue: false);
-        key.DeleteValue(LegacyRunValueName, throwOnMissingValue: false);
+        DeleteLegacyValues(key);
+    }
+
+    private static void DeleteLegacyValues(RegistryKey key)
+    {
+        foreach (var legacyValueName in LegacyRunValueNames)
+        {
+            key.DeleteValue(legacyValueName, throwOnMissingValue: false);
+        }
     }
 
     private static string GetStartupCommand()
