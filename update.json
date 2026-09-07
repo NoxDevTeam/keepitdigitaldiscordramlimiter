@@ -1,6 +1,6 @@
 {
-  "version": "1.1.1",
-  "changelog": "Added the Administrator Panel troll button and animated GIF window.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.1.1/Keep-It-Digital-Discord-RAM-Limiter-Setup.exe",
-  "sha256": "7B4A2F8D15DCA1515F0BAE57AD24D6344090E5A36D4AC6A4FA19D40D6FB68496"
+  "version": "1.3.0",
+  "changelog": "Renamed the app to Keep It Digital RAM Limiter.\nAdded Spotify and Google Chrome process detection and RAM working-set limiting alongside Discord.\nAdded separate live Discord, Spotify, and Chrome process counts.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.3.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "8EDD903B3956CE75445C5704B5CE68BD0F7E9B4208B4C87DED29FE28CC5AAF7D"
 }
