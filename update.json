@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
-  "changelog": "Renamed the app to Keep It Digital RAM Limiter.\nAdded Spotify and Google Chrome process detection and RAM working-set limiting alongside Discord.\nAdded separate live Discord, Spotify, and Chrome process counts.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.3.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "8EDD903B3956CE75445C5704B5CE68BD0F7E9B4208B4C87DED29FE28CC5AAF7D"
+  "version": "1.4.0",
+  "changelog": "Redesigned the complete interface as a modern memory control dashboard.\nAdded individual live application cards for Discord, Spotify, and Google Chrome.\nImproved limiter status, startup controls, update controls, and overall readability.\nAdded the Keep It Digital logo and proper Discord, Spotify, and Chrome icons.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.4.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "A1580DBB626F71CD89BA212FD46CA7F8B7B3EAE400C577D25BAED71173820BF3"
 }
