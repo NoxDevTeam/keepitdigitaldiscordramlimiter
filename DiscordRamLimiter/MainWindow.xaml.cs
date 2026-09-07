@@ -76,7 +76,9 @@ public partial class MainWindow : Window, IDisposable
         {
             CurrentRamText.Text = FormatBytes(snapshot.CurrentWorkingSetBytes);
 
-            ProcessCountText.Text = $"Discord: {snapshot.DiscordProcessCount}  •  Spotify: {snapshot.SpotifyProcessCount}  •  Chrome: {snapshot.ChromeProcessCount}";
+            DiscordCountText.Text = FormatProcessCount(snapshot.DiscordProcessCount);
+            SpotifyCountText.Text = FormatProcessCount(snapshot.SpotifyProcessCount);
+            ChromeCountText.Text = FormatProcessCount(snapshot.ChromeProcessCount);
 
             UpdateStatus(snapshot.IsLimiterActive);
         });
@@ -85,7 +87,9 @@ public partial class MainWindow : Window, IDisposable
     private void UpdateStatus(bool isActive)
     {
         StatusText.Text = isActive ? "Limiter Active" : "Limiter Disabled";
-        StatusText.Foreground = new SolidColorBrush(isActive ? MediaColor.FromRgb(86, 217, 143) : MediaColor.FromRgb(255, 143, 155));
+        var statusBrush = new SolidColorBrush(isActive ? MediaColor.FromRgb(86, 217, 143) : MediaColor.FromRgb(255, 143, 155));
+        StatusText.Foreground = statusBrush;
+        StatusDot.Fill = statusBrush;
     }
 
     private void AnimateToggle(bool isActive, int durationMs)
@@ -153,6 +157,11 @@ public partial class MainWindow : Window, IDisposable
         return megabytes >= 100
             ? $"{megabytes:0} MB"
             : $"{megabytes:0.0} MB";
+    }
+
+    private static string FormatProcessCount(int count)
+    {
+        return count == 1 ? "1 process" : $"{count} processes";
     }
 
     private Forms.NotifyIcon BuildTrayIcon(Drawing.Icon? trayIcon, out Forms.ToolStripMenuItem startupMenuItem)
@@ -331,7 +340,7 @@ public partial class MainWindow : Window, IDisposable
 
     private static string GetAppIconPath()
     {
-        return Path.Combine(AppContext.BaseDirectory, "Assets", "discord_no_logo.ico");
+        return Path.Combine(AppContext.BaseDirectory, "Assets", "keepitdigital.ico");
     }
 
     private void ApplyWindowIcon()

@@ -8,11 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>DiscordRamLimiter</RootNamespace>
     <AssemblyName>KeepItDigitalRamLimiter</AssemblyName>
-    <ApplicationIcon>Assets\discord_no_logo.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\keepitdigital.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DefaultItemExcludes>$(DefaultItemExcludes);bin\**;obj\**;artifacts\**;publish\**</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Assets\administrator-panel.gif" />
+    <Resource Include="Assets\keepitdigital.png" />
   </ItemGroup>
 </Project>

@@ -26,7 +26,7 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 
 ## Features
 
-- Modern WPF desktop interface.
+- Modern control-center dashboard with live application cards.
 - Live combined Discord, Spotify, and Google Chrome RAM usage display.
 - Separate Discord, Spotify, and Chrome process counts.
 - Animated ON/OFF limiter switch.

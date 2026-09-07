@@ -1,7 +1,7 @@
 #define AppName "Keep It Digital RAM Limiter"
 #define AppPublisher "Keep It Digital"
 #ifndef AppVersion
-  #define AppVersion "1.3.0"
+  #define AppVersion "1.4.0"
 #endif
 #define AppExeName "KeepItDigitalRamLimiter.exe"
 
@@ -26,7 +26,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir={#OutputDir}
 OutputBaseFilename=Keep-It-Digital-RAM-Limiter-Setup
-SetupIconFile=..\DiscordRamLimiter\Assets\discord_no_logo.ico
+SetupIconFile=..\DiscordRamLimiter\Assets\keepitdigital.ico
 UninstallDisplayIcon={app}\{#AppExeName}
 Compression=lzma2
 SolidCompression=yes

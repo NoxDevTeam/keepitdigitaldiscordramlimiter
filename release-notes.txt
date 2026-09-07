@@ -1,3 +1,4 @@
-Renamed the app to Keep It Digital RAM Limiter.
-Added Spotify and Google Chrome process detection and RAM working-set limiting alongside Discord.
-Added separate live Discord, Spotify, and Chrome process counts.
+Redesigned the complete interface as a modern memory control dashboard.
+Added individual live application cards for Discord, Spotify, and Google Chrome.
+Improved limiter status, startup controls, update controls, and overall readability.
+Added the Keep It Digital logo and proper Discord, Spotify, and Chrome icons.
