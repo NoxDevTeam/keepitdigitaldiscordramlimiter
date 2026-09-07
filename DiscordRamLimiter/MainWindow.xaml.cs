@@ -167,7 +167,7 @@ public partial class MainWindow : Window, IDisposable
     private Forms.NotifyIcon BuildTrayIcon(Drawing.Icon? trayIcon, out Forms.ToolStripMenuItem startupMenuItem)
     {
         var menu = new Forms.ContextMenuStrip();
-        menu.Items.Add("Open", null, (_, _) => ShowFromTray());
+        menu.Items.Add("Open Keep It Digital RAM Limiter", null, (_, _) => ShowFromTray());
         startupMenuItem = new Forms.ToolStripMenuItem("Launch at startup")
         {
             CheckOnClick = true
@@ -475,9 +475,9 @@ public partial class MainWindow : Window, IDisposable
         MinimizeToTray();
     }
 
-    private async void CloseButton_Click(object sender, RoutedEventArgs e)
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
-        await ExitApplicationAsync();
+        MinimizeToTray();
     }
 
     private void Window_Closing(object? sender, CancelEventArgs e)
@@ -517,7 +517,7 @@ public partial class MainWindow : Window, IDisposable
     private void ShowTrayNotification()
     {
         _trayIcon.BalloonTipTitle = "Keep It Digital RAM Limiter";
-        _trayIcon.BalloonTipText = "Still running in the system tray.";
+        _trayIcon.BalloonTipText = "The limiter is still running in the background. Use the tray icon to reopen or exit.";
         _trayIcon.BalloonTipIcon = Forms.ToolTipIcon.Info;
         _trayIcon.ShowBalloonTip(2200);
     }

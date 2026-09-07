@@ -152,11 +152,18 @@
                                FontSize="9" FontWeight="SemiBold" Foreground="#77839A" />
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Style="{StaticResource WindowButtonStyle}" Click="MinimizeButton_Click">
+                    <Button Style="{StaticResource WindowButtonStyle}"
+                            AutomationProperties.Name="Minimize to system tray"
+                            ToolTip="Minimize to system tray"
+                            Click="MinimizeButton_Click">
                         <Path Data="M0,0 L11,0" Stroke="#9DA7BA" StrokeThickness="2"
                               StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
                     </Button>
-                    <Button Margin="8,0,0,0" Style="{StaticResource WindowButtonStyle}" Click="CloseButton_Click">
+                    <Button Margin="8,0,0,0"
+                            Style="{StaticResource WindowButtonStyle}"
+                            AutomationProperties.Name="Close window and keep running"
+                            ToolTip="Close window and keep running"
+                            Click="CloseButton_Click">
                         <Path Data="M0,0 L9,9 M9,0 L0,9" Stroke="#FF8996" StrokeThickness="2"
                               StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
                     </Button>
@@ -316,7 +323,7 @@
                         <TextBlock Text="LOCAL PROCESSING" Margin="7,0,0,0"
                                    FontSize="9" FontWeight="Bold" Foreground="#768198" />
                     </StackPanel>
-                    <TextBlock Text="VERSION 1.4.0" HorizontalAlignment="Right"
+                    <TextBlock Text="VERSION 1.5.0" HorizontalAlignment="Right"
                                FontSize="9" FontWeight="SemiBold" Foreground="#626D82" />
                 </Grid>
             </StackPanel>
