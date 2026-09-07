@@ -1,6 +1,6 @@
 {
-  "version": "1.4.0",
-  "changelog": "Redesigned the complete interface as a modern memory control dashboard.\nAdded individual live application cards for Discord, Spotify, and Google Chrome.\nImproved limiter status, startup controls, update controls, and overall readability.\nAdded the Keep It Digital logo and proper Discord, Spotify, and Chrome icons.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.4.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "638EAC69B0E07D45BEC8325C68B2E78BCA034DC9C8FB69978027D15C289157DA"
+  "version": "1.5.0",
+  "changelog": "The minimize and close buttons now hide the app completely to the system tray.\nDiscord, Spotify, and Chrome limiting continues normally in the background.\nThe tray menu can reopen the window or fully exit the application.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.5.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "205C930EDC0C3E849FD33C5489F38FB1B27CB14982C56BCC58C7FE818ACDCB67"
 }
