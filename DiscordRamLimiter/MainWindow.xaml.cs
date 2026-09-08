@@ -24,6 +24,7 @@ namespace DiscordRamLimiter;
 public partial class MainWindow : Window, IDisposable
 {
     private readonly DiscordLimiterService _limiterService = new();
+    private readonly EmergencyMemoryGuardService _emergencyMemoryGuardService = new();
     private readonly UpdateService _updateService = new();
     private readonly Forms.NotifyIcon _trayIcon;
     private readonly Drawing.Icon? _customTrayIcon;
@@ -33,6 +34,8 @@ public partial class MainWindow : Window, IDisposable
     private bool _isExitRequested;
     private bool _isMinimizingToTray;
     private bool _isCheckingForUpdates;
+    private bool _isUpdatingEmergencyShutdownSetting;
+    private bool _isEmergencyShutdownScheduled;
 
     public MainWindow(bool startMinimized = false)
     {
@@ -44,6 +47,7 @@ public partial class MainWindow : Window, IDisposable
         _customTrayIcon = LoadTrayIcon();
         _trayIcon = BuildTrayIcon(_customTrayIcon, out _startupMenuItem);
         _limiterService.SnapshotUpdated += LimiterService_SnapshotUpdated;
+        _emergencyMemoryGuardService.EmergencyShutdownRequested += EmergencyMemoryGuardService_EmergencyShutdownRequested;
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +57,8 @@ public partial class MainWindow : Window, IDisposable
         AnimateToggle(_startMinimized, durationMs: 1);
         UpdateStatus(_startMinimized);
         RefreshStartupState();
+        RefreshEmergencyShutdownState();
+        await _emergencyMemoryGuardService.StartAsync(EmergencyShutdownCheckBox.IsChecked == true);
 
         if (_startMinimized)
         {
@@ -238,6 +244,145 @@ public partial class MainWindow : Window, IDisposable
         _trayIcon.BalloonTipText = "Could not update Windows startup settings.";
         _trayIcon.BalloonTipIcon = Forms.ToolTipIcon.Warning;
         _trayIcon.ShowBalloonTip(2200);
+    }
+
+    private async void EmergencyShutdownCheckBox_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isUpdatingEmergencyShutdownSetting)
+        {
+            return;
+        }
+
+        var isEnabled = EmergencyShutdownCheckBox.IsChecked == true;
+        if (isEnabled)
+        {
+            var confirmation = System.Windows.MessageBox.Show(
+                this,
+                "This option can shut down Windows and cause unsaved work to be lost.\n\n" +
+                "It activates only after total system memory stays at 99% or higher for 30 seconds. " +
+                "A 60-second cancellable countdown is shown before shutdown.\n\nEnable it?",
+                "Enable emergency shutdown?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning,
+                MessageBoxResult.No);
+
+            if (confirmation != MessageBoxResult.Yes)
+            {
+                SetEmergencyShutdownCheckBox(false);
+                return;
+            }
+        }
+
+        try
+        {
+            UserSettingsService.SetEmergencyShutdownEnabled(isEnabled);
+            _emergencyMemoryGuardService.SetEnabled(isEnabled);
+
+            if (!isEnabled && _isEmergencyShutdownScheduled)
+            {
+                await CancelEmergencyShutdownAsync(showConfirmation: true);
+            }
+        }
+        catch (Exception exception) when (exception is UnauthorizedAccessException or IOException or SecurityException)
+        {
+            SetEmergencyShutdownCheckBox(_emergencyMemoryGuardService.IsEnabled);
+            System.Windows.MessageBox.Show(
+                this,
+                "Could not save the emergency shutdown setting.",
+                "Keep It Digital RAM Limiter",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+    }
+
+    private void RefreshEmergencyShutdownState()
+    {
+        var isEnabled = false;
+        try
+        {
+            isEnabled = UserSettingsService.IsEmergencyShutdownEnabled();
+        }
+        catch (Exception exception) when (exception is UnauthorizedAccessException or IOException or SecurityException)
+        {
+        }
+
+        SetEmergencyShutdownCheckBox(isEnabled);
+    }
+
+    private void SetEmergencyShutdownCheckBox(bool isChecked)
+    {
+        _isUpdatingEmergencyShutdownSetting = true;
+        EmergencyShutdownCheckBox.IsChecked = isChecked;
+        _isUpdatingEmergencyShutdownSetting = false;
+    }
+
+    private void EmergencyMemoryGuardService_EmergencyShutdownRequested(
+        object? sender,
+        EmergencyShutdownRequestedEventArgs e)
+    {
+        _ = Dispatcher.InvokeAsync(() => _ = HandleEmergencyShutdownRequestAsync(e.MemoryLoadPercent));
+    }
+
+    private async Task HandleEmergencyShutdownRequestAsync(uint memoryLoadPercent)
+    {
+        if (_isEmergencyShutdownScheduled || !_emergencyMemoryGuardService.IsEnabled)
+        {
+            return;
+        }
+
+        if (!await SystemShutdownService.ScheduleEmergencyShutdownAsync())
+        {
+            ShowFromTray();
+            System.Windows.MessageBox.Show(
+                this,
+                "Windows could not start the emergency shutdown countdown.",
+                "Keep It Digital RAM Limiter",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
+        _isEmergencyShutdownScheduled = true;
+        ShowFromTray();
+
+        _trayIcon.BalloonTipTitle = "Emergency memory protection";
+        _trayIcon.BalloonTipText = "Memory stayed at 99%. Windows will shut down in 60 seconds unless you cancel.";
+        _trayIcon.BalloonTipIcon = Forms.ToolTipIcon.Warning;
+        _trayIcon.ShowBalloonTip(5000);
+
+        var cancelShutdown = System.Windows.MessageBox.Show(
+            this,
+            $"System memory remained at {memoryLoadPercent}% or higher for 30 seconds.\n\n" +
+            "Windows will shut down in 60 seconds. Save your work immediately.\n\n" +
+            "Do you want to cancel the shutdown?",
+            "Emergency shutdown countdown",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning,
+            MessageBoxResult.Yes);
+
+        if (cancelShutdown == MessageBoxResult.Yes)
+        {
+            await CancelEmergencyShutdownAsync(showConfirmation: true);
+        }
+    }
+
+    private async Task CancelEmergencyShutdownAsync(bool showConfirmation)
+    {
+        var wasCancelled = await SystemShutdownService.AbortShutdownAsync();
+        if (wasCancelled)
+        {
+            _isEmergencyShutdownScheduled = false;
+        }
+
+        if (showConfirmation)
+        {
+            System.Windows.MessageBox.Show(
+                this,
+                wasCancelled ? "The emergency shutdown was cancelled." : "Windows could not cancel the shutdown countdown.",
+                "Keep It Digital RAM Limiter",
+                MessageBoxButton.OK,
+                wasCancelled ? MessageBoxImage.Information : MessageBoxImage.Warning);
+        }
     }
 
     private async void CheckForUpdatesButton_Click(object sender, RoutedEventArgs e)
@@ -527,6 +672,13 @@ public partial class MainWindow : Window, IDisposable
     {
         _isExitRequested = true;
         _trayIcon.Visible = false;
+
+        if (_isEmergencyShutdownScheduled)
+        {
+            await CancelEmergencyShutdownAsync(showConfirmation: false);
+        }
+
+        await _emergencyMemoryGuardService.StopAsync();
         await _limiterService.StopAsync();
         System.Windows.Application.Current.Shutdown();
     }
@@ -543,6 +695,7 @@ public partial class MainWindow : Window, IDisposable
     {
         _trayIcon.Dispose();
         _customTrayIcon?.Dispose();
+        _emergencyMemoryGuardService.Dispose();
         _limiterService.Dispose();
     }
 }

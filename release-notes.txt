@@ -1,3 +1,2 @@
-Expanded browser support to Edge, Firefox and Tor, Brave, Opera and Opera GX, Vivaldi, Arc, Dia, Safari, and many Chromium and Firefox variants.
-Added automatic RAM trimming for current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine.
-Razer device drivers, services, SDK hosts, installers, updaters, elevation helpers, and crash handlers remain protected and excluded.
+Added an optional 99% system-memory emergency shutdown guard with a 30-second trigger and cancellable 60-second countdown.
+The guard is disabled by default, clearly warns about unsaved work before it can be enabled, and preserves its setting across updates.

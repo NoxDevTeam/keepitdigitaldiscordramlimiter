@@ -38,6 +38,7 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 - Start Menu and Windows Search integration through the installer.
 - Automatic update check at startup and a manual `Check for updates` button.
 - SHA-256 and embedded-version verification before any downloaded installer is opened.
+- Optional emergency protection when total system RAM remains at 99% or higher for 30 seconds, with a cancellable 60-second shutdown countdown.
 - Supports Discord Stable, Canary, PTB, Development, Spotify, and a broad browser list.
 - Supports safe user-facing NVIDIA App, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link processes.
 - Automatically supports current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine, while excluding protected Razer components by name.
@@ -100,6 +101,8 @@ CortexLauncher
 ```
 
 Razer processes containing `service`, `driver`, `sdk`, `install`, `update`, `elevat`, or `crash` are intentionally excluded. This protects device drivers, SDK hosts, installers, update components, and service processes.
+
+The emergency shutdown option is disabled by default because a shutdown can cause unsaved work to be lost. Its preference is stored under the current Windows user and is not overwritten by application updates.
 
 ## Requirements
 
