@@ -1,6 +1,6 @@
 {
-  "version": "1.6.0",
-  "changelog": "Added safe RAM trimming for NVIDIA App overlays, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link.\nAdded a live count for additional background app processes.\nCritical Windows, security, shell, and display-driver processes remain protected and excluded.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.6.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "C9FBC59EE4F270247059F96AC72DEB62943A1C5216CB5ED5EC4AC5C9EA6F61C0"
+  "version": "1.7.0",
+  "changelog": "Expanded browser support to Edge, Firefox and Tor, Brave, Opera and Opera GX, Vivaldi, Arc, Dia, Safari, and many Chromium and Firefox variants.\nAdded automatic RAM trimming for current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine.\nRazer device drivers, services, SDK hosts, installers, updaters, elevation helpers, and crash handlers remain protected and excluded.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.7.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "A7C506F6D90C886EC8D8C65C63CCA363912262A1385FFC8D7706903F5AD8532F"
 }
