@@ -15,7 +15,39 @@ public sealed class DiscordLimiterService : IDisposable
         ("DiscordPTB", TrackedApp.Discord),
         ("DiscordDevelopment", TrackedApp.Discord),
         ("Spotify", TrackedApp.Spotify),
-        ("chrome", TrackedApp.Chrome),
+
+        // Browser application processes. WebView runtimes are excluded because other apps depend on them.
+        ("chrome", TrackedApp.Browser),
+        ("msedge", TrackedApp.Browser),
+        ("firefox", TrackedApp.Browser),
+        ("brave", TrackedApp.Browser),
+        ("opera", TrackedApp.Browser),
+        ("vivaldi", TrackedApp.Browser),
+        ("chromium", TrackedApp.Browser),
+        ("Arc", TrackedApp.Browser),
+        ("Dia", TrackedApp.Browser),
+        ("Safari", TrackedApp.Browser),
+        ("waterfox", TrackedApp.Browser),
+        ("librewolf", TrackedApp.Browser),
+        ("floorp", TrackedApp.Browser),
+        ("zen", TrackedApp.Browser),
+        ("thorium", TrackedApp.Browser),
+        ("duckduckgo", TrackedApp.Browser),
+        ("maxthon", TrackedApp.Browser),
+        ("palemoon", TrackedApp.Browser),
+        ("basilisk", TrackedApp.Browser),
+        ("seamonkey", TrackedApp.Browser),
+        ("iexplore", TrackedApp.Browser),
+        ("slimjet", TrackedApp.Browser),
+        ("centbrowser", TrackedApp.Browser),
+        ("sidekick", TrackedApp.Browser),
+        ("wavebox", TrackedApp.Browser),
+        ("avastbrowser", TrackedApp.Browser),
+        ("avgbrowser", TrackedApp.Browser),
+        ("ulaa", TrackedApp.Browser),
+        ("qutebrowser", TrackedApp.Browser),
+        ("falkon", TrackedApp.Browser),
+        ("midori", TrackedApp.Browser),
 
         // User-facing background apps from the optional utilities shown in Task Manager.
         // Critical Windows, security, shell, and display-driver processes are intentionally excluded.
@@ -31,6 +63,17 @@ public sealed class DiscordLimiterService : IDisposable
         ("GCC", TrackedApp.Background),
         ("LEDKeeper2", TrackedApp.Background),
         ("PhoneExperienceHost", TrackedApp.Background)
+    ];
+
+    private static readonly string[] ProtectedRazerProcessNameFragments =
+    [
+        "service",
+        "driver",
+        "sdk",
+        "install",
+        "update",
+        "elevat",
+        "crash"
     ];
 
     private CancellationTokenSource? _monitorCancellation;
@@ -131,7 +174,7 @@ public sealed class DiscordLimiterService : IDisposable
                 out var processCount,
                 out var discordProcessCount,
                 out var spotifyProcessCount,
-                out var chromeProcessCount,
+                out var browserProcessCount,
                 out var backgroundProcessCount);
 
             if (IsLimiterActive && processCount > 0)
@@ -143,7 +186,7 @@ public sealed class DiscordLimiterService : IDisposable
                     out processCount,
                     out discordProcessCount,
                     out spotifyProcessCount,
-                    out chromeProcessCount,
+                    out browserProcessCount,
                     out backgroundProcessCount);
             }
 
@@ -155,7 +198,7 @@ public sealed class DiscordLimiterService : IDisposable
                     processCount,
                     discordProcessCount,
                     spotifyProcessCount,
-                    chromeProcessCount,
+                    browserProcessCount,
                     backgroundProcessCount,
                     IsLimiterActive,
                     DateTimeOffset.Now));
@@ -193,14 +236,14 @@ public sealed class DiscordLimiterService : IDisposable
         out int processCount,
         out int discordProcessCount,
         out int spotifyProcessCount,
-        out int chromeProcessCount,
+        out int browserProcessCount,
         out int backgroundProcessCount)
     {
         long totalBytes = 0;
         processCount = 0;
         discordProcessCount = 0;
         spotifyProcessCount = 0;
-        chromeProcessCount = 0;
+        browserProcessCount = 0;
         backgroundProcessCount = 0;
 
         foreach (var trackedProcess in GetTrackedProcesses())
@@ -219,9 +262,9 @@ public sealed class DiscordLimiterService : IDisposable
                 {
                     spotifyProcessCount++;
                 }
-                else if (trackedProcess.App == TrackedApp.Chrome)
+                else if (trackedProcess.App == TrackedApp.Browser)
                 {
-                    chromeProcessCount++;
+                    browserProcessCount++;
                 }
                 else
                 {
@@ -242,6 +285,8 @@ public sealed class DiscordLimiterService : IDisposable
 
     private static IEnumerable<TrackedProcess> GetTrackedProcesses()
     {
+        var yieldedProcessIds = new HashSet<int>();
+
         foreach (var (processName, app) in TrackedProcessNames)
         {
             Process[] processes;
@@ -257,9 +302,71 @@ public sealed class DiscordLimiterService : IDisposable
 
             foreach (var process in processes)
             {
-                yield return new TrackedProcess(process, app);
+                if (yieldedProcessIds.Add(process.Id))
+                {
+                    yield return new TrackedProcess(process, app);
+                }
+                else
+                {
+                    process.Dispose();
+                }
             }
         }
+
+        // Include current-user Razer application front ends, including future variants not yet
+        // known by name. Services, drivers, SDK hosts, installers, and updaters stay protected.
+        int currentSessionId;
+        using (var currentProcess = Process.GetCurrentProcess())
+        {
+            currentSessionId = currentProcess.SessionId;
+        }
+
+        Process[] allProcesses;
+        try
+        {
+            allProcesses = Process.GetProcesses();
+        }
+        catch (InvalidOperationException)
+        {
+            yield break;
+        }
+
+        foreach (var process in allProcesses)
+        {
+            var shouldYield = false;
+
+            try
+            {
+                shouldYield = process.SessionId == currentSessionId &&
+                              IsRazerUserApplication(process.ProcessName) &&
+                              yieldedProcessIds.Add(process.Id);
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+            }
+
+            if (shouldYield)
+            {
+                yield return new TrackedProcess(process, TrackedApp.Background);
+            }
+            else
+            {
+                process.Dispose();
+            }
+        }
+    }
+
+    private static bool IsRazerUserApplication(string processName)
+    {
+        var isRazerApplication = processName.StartsWith("Razer", StringComparison.OrdinalIgnoreCase) ||
+                                 processName.Equals("CortexLauncher", StringComparison.OrdinalIgnoreCase);
+
+        return isRazerApplication &&
+               !ProtectedRazerProcessNameFragments.Any(
+                   fragment => processName.Contains(fragment, StringComparison.OrdinalIgnoreCase));
     }
 
     private static long SafeWorkingSet(Process process)
@@ -278,7 +385,7 @@ public sealed class DiscordLimiterService : IDisposable
     {
         Discord,
         Spotify,
-        Chrome,
+        Browser,
         Background
     }
 

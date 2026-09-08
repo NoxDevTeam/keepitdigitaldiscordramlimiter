@@ -27,8 +27,8 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 ## Features
 
 - Modern control-center dashboard with live application cards.
-- Live combined Discord, Spotify, and Google Chrome RAM usage display.
-- Separate Discord, Spotify, and Chrome process counts.
+- Live combined application and browser RAM usage display.
+- Separate Discord, Spotify, browser, and additional-app process counts.
 - Animated ON/OFF limiter switch.
 - Safe background monitor loop with cleanup on exit.
 - Minimize-to-tray behavior.
@@ -38,8 +38,9 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 - Start Menu and Windows Search integration through the installer.
 - Automatic update check at startup and a manual `Check for updates` button.
 - SHA-256 and embedded-version verification before any downloaded installer is opened.
-- Supports Discord Stable, Canary, PTB, Development, Spotify, and Google Chrome process names.
+- Supports Discord Stable, Canary, PTB, Development, Spotify, and a broad browser list.
 - Supports safe user-facing NVIDIA App, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link processes.
+- Automatically supports current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine, while excluding protected Razer components by name.
 - Intentionally excludes critical Windows, security, shell, and display-driver service processes.
 
 ## Supported Processes
@@ -53,6 +54,35 @@ DiscordPTB
 DiscordDevelopment
 Spotify
 chrome
+msedge
+firefox (including Tor Browser)
+brave
+opera (including Opera GX)
+vivaldi
+chromium
+Arc
+Dia
+Safari
+waterfox
+librewolf
+floorp
+zen
+thorium
+duckduckgo
+maxthon
+palemoon
+basilisk
+seamonkey
+slimjet
+centbrowser
+sidekick
+wavebox
+avastbrowser
+avgbrowser
+ulaa
+qutebrowser
+falkon
+midori
 NVIDIA App
 NVIDIA Overlay
 NVIDIA Web Helper
@@ -65,7 +95,11 @@ cncmd
 GCC
 LEDKeeper2
 PhoneExperienceHost
+Current-user processes whose names begin with Razer
+CortexLauncher
 ```
+
+Razer processes containing `service`, `driver`, `sdk`, `install`, `update`, `elevat`, or `crash` are intentionally excluded. This protects device drivers, SDK hosts, installers, update components, and service processes.
 
 ## Requirements
 

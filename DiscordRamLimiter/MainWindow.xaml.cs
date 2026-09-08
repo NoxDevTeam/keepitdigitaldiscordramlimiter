@@ -78,7 +78,7 @@ public partial class MainWindow : Window, IDisposable
 
             DiscordCountText.Text = FormatProcessCount(snapshot.DiscordProcessCount);
             SpotifyCountText.Text = FormatProcessCount(snapshot.SpotifyProcessCount);
-            ChromeCountText.Text = FormatProcessCount(snapshot.ChromeProcessCount);
+            BrowserCountText.Text = FormatProcessCount(snapshot.BrowserProcessCount);
             AdditionalCountText.Text = $"EXTRAS: {snapshot.BackgroundProcessCount}";
 
             UpdateStatus(snapshot.IsLimiterActive);

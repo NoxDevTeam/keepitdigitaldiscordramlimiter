@@ -6,7 +6,7 @@ public sealed record DiscordMemorySnapshot(
     int ProcessCount,
     int DiscordProcessCount,
     int SpotifyProcessCount,
-    int ChromeProcessCount,
+    int BrowserProcessCount,
     int BackgroundProcessCount,
     bool IsLimiterActive,
     DateTimeOffset CapturedAt);

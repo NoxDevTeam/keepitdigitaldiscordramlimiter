@@ -1,3 +1,3 @@
-Added safe RAM trimming for NVIDIA App overlays, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link.
-Added a live count for additional background app processes.
-Critical Windows, security, shell, and display-driver processes remain protected and excluded.
+Expanded browser support to Edge, Firefox and Tor, Brave, Opera and Opera GX, Vivaldi, Arc, Dia, Safari, and many Chromium and Firefox variants.
+Added automatic RAM trimming for current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine.
+Razer device drivers, services, SDK hosts, installers, updaters, elevation helpers, and crash handlers remain protected and excluded.

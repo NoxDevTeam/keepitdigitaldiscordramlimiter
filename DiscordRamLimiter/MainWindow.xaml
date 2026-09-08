@@ -291,13 +291,15 @@
                         <Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="42" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                             <Border Width="36" Height="36" CornerRadius="11" Background="#4285F4">
-                                <Viewbox Width="21" Height="21">
-                                    <Path Width="24" Height="24" Data="{StaticResource ChromeIconGeometry}" Fill="#FFFFFF" Stretch="Uniform" />
-                                </Viewbox>
+                                <Grid Width="21" Height="21">
+                                    <Ellipse Stroke="#FFFFFF" StrokeThickness="1.8" />
+                                    <Path Data="M1,10.5 L20,10.5 M10.5,1 C7.2,5.2 7.2,15.8 10.5,20 M10.5,1 C13.8,5.2 13.8,15.8 10.5,20"
+                                          Stroke="#FFFFFF" StrokeThickness="1.5" StrokeStartLineCap="Round" />
+                                </Grid>
                             </Border>
                             <StackPanel Grid.Column="1" Margin="9,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="Chrome" FontSize="12" FontWeight="SemiBold" />
-                                <TextBlock x:Name="ChromeCountText" Text="0 processes" Margin="0,4,0,0" FontSize="10" Foreground="#8792A8" />
+                                <TextBlock Text="Browsers" FontSize="12" FontWeight="SemiBold" />
+                                <TextBlock x:Name="BrowserCountText" Text="0 processes" Margin="0,4,0,0" FontSize="10" Foreground="#8792A8" />
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -328,7 +330,7 @@
                         <TextBlock Text="LOCAL PROCESSING" Margin="7,0,0,0"
                                    FontSize="9" FontWeight="Bold" Foreground="#768198" />
                     </StackPanel>
-                    <TextBlock Text="VERSION 1.6.0" HorizontalAlignment="Right"
+                    <TextBlock Text="VERSION 1.7.0" HorizontalAlignment="Right"
                                FontSize="9" FontWeight="SemiBold" Foreground="#626D82" />
                 </Grid>
             </StackPanel>
