@@ -173,7 +173,7 @@
 
             <StackPanel Grid.Row="1" Margin="30,20,30,24">
                 <TextBlock Text="Memory control, simplified." FontSize="25" FontWeight="Bold" Foreground="#F4F6FC" />
-                <TextBlock Text="One switch keeps Discord, Spotify, and Chrome working sets tidy."
+                <TextBlock Text="One switch keeps your selected apps and safe background utilities tidy."
                            Margin="0,6,0,0" FontSize="12" Foreground="{StaticResource MutedTextBrush}" />
 
                 <Border Height="184" Margin="0,18,0,0" CornerRadius="22"
@@ -208,6 +208,7 @@
 
                         <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <Button x:Name="LimiterToggleButton" Width="214" Height="74"
+                                    AutomationProperties.Name="Toggle RAM limiter"
                                     Click="LimiterToggleButton_Click" Background="Transparent"
                                     BorderThickness="0" Cursor="Hand" FocusVisualStyle="{x:Null}"
                                     OverridesDefaultStyle="True">
@@ -245,7 +246,11 @@
 
                 <Grid Margin="0,20,0,0">
                     <TextBlock Text="TRACKED APPLICATIONS" FontSize="10" FontWeight="Bold" Foreground="#7F8BA0" />
-                    <TextBlock Text="LIVE" HorizontalAlignment="Right" FontSize="9" FontWeight="Bold" Foreground="#58D695" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock x:Name="AdditionalCountText" Text="EXTRAS: 0"
+                                   Margin="0,0,12,0" FontSize="9" FontWeight="Bold" Foreground="#7F8BA0" />
+                        <TextBlock Text="LIVE" FontSize="9" FontWeight="Bold" Foreground="#58D695" />
+                    </StackPanel>
                 </Grid>
 
                 <Grid Height="104" Margin="0,10,0,0">
@@ -323,7 +328,7 @@
                         <TextBlock Text="LOCAL PROCESSING" Margin="7,0,0,0"
                                    FontSize="9" FontWeight="Bold" Foreground="#768198" />
                     </StackPanel>
-                    <TextBlock Text="VERSION 1.5.0" HorizontalAlignment="Right"
+                    <TextBlock Text="VERSION 1.6.0" HorizontalAlignment="Right"
                                FontSize="9" FontWeight="SemiBold" Foreground="#626D82" />
                 </Grid>
             </StackPanel>

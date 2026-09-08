@@ -1,8 +1,8 @@
 # Keep It Digital RAM Limiter
 
-Keep It Digital RAM Limiter is a small Windows desktop app that monitors Discord, Spotify, and Google Chrome memory usage and can trim their working sets while it runs in the background.
+Keep It Digital RAM Limiter is a small Windows desktop app that monitors selected applications and can trim their working sets while it runs in the background.
 
-The app uses the native Windows `SetProcessWorkingSetSize(process.Handle, -1, -1)` call on detected Discord, Spotify, and Google Chrome processes when the limiter is enabled.
+The app uses the native Windows `SetProcessWorkingSetSize(process.Handle, -1, -1)` call on detected processes when the limiter is enabled.
 
 ## Screenshot
 
@@ -39,6 +39,8 @@ You __do not need__ to disable your antivirus to use this app. If you are unsure
 - Automatic update check at startup and a manual `Check for updates` button.
 - SHA-256 and embedded-version verification before any downloaded installer is opened.
 - Supports Discord Stable, Canary, PTB, Development, Spotify, and Google Chrome process names.
+- Supports safe user-facing NVIDIA App, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link processes.
+- Intentionally excludes critical Windows, security, shell, and display-driver service processes.
 
 ## Supported Processes
 
@@ -51,6 +53,18 @@ DiscordPTB
 DiscordDevelopment
 Spotify
 chrome
+NVIDIA App
+NVIDIA Overlay
+NVIDIA Web Helper
+nvsphelper64
+RadeonSoftware
+AMDRSServ
+AMDRSSrcExt
+amdow
+cncmd
+GCC
+LEDKeeper2
+PhoneExperienceHost
 ```
 
 ## Requirements

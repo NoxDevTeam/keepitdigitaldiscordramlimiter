@@ -1,7 +1,7 @@
 #define AppName "Keep It Digital RAM Limiter"
 #define AppPublisher "Keep It Digital"
 #ifndef AppVersion
-  #define AppVersion "1.5.0"
+  #define AppVersion "1.6.0"
 #endif
 #define AppExeName "KeepItDigitalRamLimiter.exe"
 

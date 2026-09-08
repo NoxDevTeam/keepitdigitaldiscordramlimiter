@@ -1,3 +1,3 @@
-The minimize and close buttons now hide the app completely to the system tray.
-Discord, Spotify, and Chrome limiting continues normally in the background.
-The tray menu can reopen the window or fully exit the application.
+Added safe RAM trimming for NVIDIA App overlays, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link.
+Added a live count for additional background app processes.
+Critical Windows, security, shell, and display-driver processes remain protected and excluded.

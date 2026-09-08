@@ -15,7 +15,22 @@ public sealed class DiscordLimiterService : IDisposable
         ("DiscordPTB", TrackedApp.Discord),
         ("DiscordDevelopment", TrackedApp.Discord),
         ("Spotify", TrackedApp.Spotify),
-        ("chrome", TrackedApp.Chrome)
+        ("chrome", TrackedApp.Chrome),
+
+        // User-facing background apps from the optional utilities shown in Task Manager.
+        // Critical Windows, security, shell, and display-driver processes are intentionally excluded.
+        ("NVIDIA App", TrackedApp.Background),
+        ("NVIDIA Overlay", TrackedApp.Background),
+        ("NVIDIA Web Helper", TrackedApp.Background),
+        ("nvsphelper64", TrackedApp.Background),
+        ("RadeonSoftware", TrackedApp.Background),
+        ("AMDRSServ", TrackedApp.Background),
+        ("AMDRSSrcExt", TrackedApp.Background),
+        ("amdow", TrackedApp.Background),
+        ("cncmd", TrackedApp.Background),
+        ("GCC", TrackedApp.Background),
+        ("LEDKeeper2", TrackedApp.Background),
+        ("PhoneExperienceHost", TrackedApp.Background)
     ];
 
     private CancellationTokenSource? _monitorCancellation;
@@ -40,7 +55,7 @@ public sealed class DiscordLimiterService : IDisposable
             return Task.CompletedTask;
         }
 
-        _initialWorkingSetBytes ??= GetTotalTrackedWorkingSetBytes(out _, out _, out _, out _);
+        _initialWorkingSetBytes ??= GetTotalTrackedWorkingSetBytes(out _, out _, out _, out _, out _);
         _monitorCancellation = new CancellationTokenSource();
         _monitorTask = MonitorLoopAsync(_monitorCancellation.Token);
         return Task.CompletedTask;
@@ -116,7 +131,8 @@ public sealed class DiscordLimiterService : IDisposable
                 out var processCount,
                 out var discordProcessCount,
                 out var spotifyProcessCount,
-                out var chromeProcessCount);
+                out var chromeProcessCount,
+                out var backgroundProcessCount);
 
             if (IsLimiterActive && processCount > 0)
             {
@@ -127,7 +143,8 @@ public sealed class DiscordLimiterService : IDisposable
                     out processCount,
                     out discordProcessCount,
                     out spotifyProcessCount,
-                    out chromeProcessCount);
+                    out chromeProcessCount,
+                    out backgroundProcessCount);
             }
 
             SnapshotUpdated?.Invoke(
@@ -139,6 +156,7 @@ public sealed class DiscordLimiterService : IDisposable
                     discordProcessCount,
                     spotifyProcessCount,
                     chromeProcessCount,
+                    backgroundProcessCount,
                     IsLimiterActive,
                     DateTimeOffset.Now));
 
@@ -175,13 +193,15 @@ public sealed class DiscordLimiterService : IDisposable
         out int processCount,
         out int discordProcessCount,
         out int spotifyProcessCount,
-        out int chromeProcessCount)
+        out int chromeProcessCount,
+        out int backgroundProcessCount)
     {
         long totalBytes = 0;
         processCount = 0;
         discordProcessCount = 0;
         spotifyProcessCount = 0;
         chromeProcessCount = 0;
+        backgroundProcessCount = 0;
 
         foreach (var trackedProcess in GetTrackedProcesses())
         {
@@ -199,9 +219,13 @@ public sealed class DiscordLimiterService : IDisposable
                 {
                     spotifyProcessCount++;
                 }
-                else
+                else if (trackedProcess.App == TrackedApp.Chrome)
                 {
                     chromeProcessCount++;
+                }
+                else
+                {
+                    backgroundProcessCount++;
                 }
             }
             catch (InvalidOperationException)
@@ -254,7 +278,8 @@ public sealed class DiscordLimiterService : IDisposable
     {
         Discord,
         Spotify,
-        Chrome
+        Chrome,
+        Background
     }
 
     private readonly record struct TrackedProcess(Process Process, TrackedApp App);
