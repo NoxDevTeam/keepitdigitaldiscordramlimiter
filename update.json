@@ -1,6 +1,6 @@
 {
-  "version": "1.7.0",
-  "changelog": "Expanded browser support to Edge, Firefox and Tor, Brave, Opera and Opera GX, Vivaldi, Arc, Dia, Safari, and many Chromium and Firefox variants.\nAdded automatic RAM trimming for current-user Razer application front ends, including Synapse, Central, Cortex, Axon, and App Engine.\nRazer device drivers, services, SDK hosts, installers, updaters, elevation helpers, and crash handlers remain protected and excluded.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.7.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "A7C506F6D90C886EC8D8C65C63CCA363912262A1385FFC8D7706903F5AD8532F"
+  "version": "1.8.0",
+  "changelog": "Added an optional 99% system-memory emergency shutdown guard with a 30-second trigger and cancellable 60-second countdown.\nThe guard is disabled by default, clearly warns about unsaved work before it can be enabled, and preserves its setting across updates.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.8.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "C938A605AE351AFE2FC8E7FF580B81972457E9A8A97D9F878E5B22C57C5331DF"
 }
