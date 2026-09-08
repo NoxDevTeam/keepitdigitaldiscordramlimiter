@@ -1,6 +1,6 @@
 {
-  "version": "1.5.0",
-  "changelog": "The minimize and close buttons now hide the app completely to the system tray.\nDiscord, Spotify, and Chrome limiting continues normally in the background.\nThe tray menu can reopen the window or fully exit the application.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.5.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "205C930EDC0C3E849FD33C5489F38FB1B27CB14982C56BCC58C7FE818ACDCB67"
+  "version": "1.6.0",
+  "changelog": "Added safe RAM trimming for NVIDIA App overlays, AMD Software, Gigabyte Control Center, LEDKeeper, and Phone Link.\nAdded a live count for additional background app processes.\nCritical Windows, security, shell, and display-driver processes remain protected and excluded.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.6.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
+  "sha256": "C9FBC59EE4F270247059F96AC72DEB62943A1C5216CB5ED5EC4AC5C9EA6F61C0"
 }
