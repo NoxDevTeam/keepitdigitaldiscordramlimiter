@@ -2,5 +2,5 @@
   "version": "2.0.3",
   "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.3/KeepItDigital-Setup.exe",
   "changelog": "KeepItDigital 2.0.3 — Release update\n\n- New clean KeepItDigital application shell and navigation.\n- Supabase account creation and sign-in.\n- Email verification with desktop callback support.\n- Gmail SMTP support for authentication emails.\n- Modern rounded UI, custom dialogs and improved animations.\n- Automatic update checking at application startup.\n- New single-executable portable build.\n- New Windows installer build.\n- Improved release and deployment workflow.",
-  "sha256": "C938A605AE351AFE2FC8E7FF580B81972457E9A8A97D9F878E5B22C57C5331DF"
+  "sha256": "c938a605ae351afe2fc8e7ff580b81972457e9a8a97d9f878e5b22c57c5331df"
 }
