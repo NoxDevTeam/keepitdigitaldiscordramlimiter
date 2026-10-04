@@ -1,6 +1,6 @@
-{
-  "version": "1.8.0",
-  "changelog": "Added an optional 99% system-memory emergency shutdown guard with a 30-second trigger and cancellable 60-second countdown.\nThe guard is disabled by default, clearly warns about unsaved work before it can be enabled, and preserves its setting across updates.",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v1.8.0/Keep-It-Digital-RAM-Limiter-Setup.exe",
-  "sha256": "C938A605AE351AFE2FC8E7FF580B81972457E9A8A97D9F878E5B22C57C5331DF"
+﻿{
+    "version":  "2.0.0",
+    "changelog":  "KeepItDigital 2.0.0 â€” expanded control center\n\n- New clean KeepItDigital application shell and navigation.\n- Supabase account creation/sign-in required before the workspace opens.\n- Profile/settings page with Supabase display-name updates.\n- Original RAM limiter retained with tray, startup, update and emergency protection features.\n- Fast SSH with encrypted saved profiles, optional key paths, extra arguments, multiple sessions and quick command bar.\n- Startup Apps manager for current-user Windows startup entries and custom EXEs.\n- Windows DPAPI protection for local sessions and SSH profiles.",
+    "downloadUrl":  "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.0/KeepItDigital-Setup.exe",
+    "sha256":  "EA609F979212505BD8E69BD0EE1310426C58E1AFB79B6A17A3FB0A46558E39A2"
 }
