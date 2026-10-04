@@ -1,2 +1,9 @@
-Added an optional 99% system-memory emergency shutdown guard with a 30-second trigger and cancellable 60-second countdown.
-The guard is disabled by default, clearly warns about unsaved work before it can be enabled, and preserves its setting across updates.
+KeepItDigital 2.0.0 — expanded control center
+
+- New clean KeepItDigital application shell and navigation.
+- Supabase account creation/sign-in required before the workspace opens.
+- Profile/settings page with Supabase display-name updates.
+- Original RAM limiter retained with tray, startup, update and emergency protection features.
+- Fast SSH with encrypted saved profiles, optional key paths, extra arguments, multiple sessions and quick command bar.
+- Startup Apps manager for current-user Windows startup entries and custom EXEs.
+- Windows DPAPI protection for local sessions and SSH profiles.

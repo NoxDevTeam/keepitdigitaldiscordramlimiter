@@ -1,12 +1,12 @@
-#define AppName "Keep It Digital RAM Limiter"
+#define AppName "KeepItDigital"
 #define AppPublisher "Keep It Digital"
 #ifndef AppVersion
-  #define AppVersion "1.8.0"
+  #define AppVersion "2.0.0"
 #endif
-#define AppExeName "KeepItDigitalRamLimiter.exe"
+#define AppExeName "KeepItDigital.exe"
 
 #ifndef SourceDir
-  #define SourceDir "..\publish\KeepItDigitalRamLimiter-win-x64"
+  #define SourceDir "..\publish\KeepItDigital-win-x64"
 #endif
 
 #ifndef OutputDir
@@ -18,14 +18,14 @@ AppId={{97E41524-D2EF-40FD-A6EF-C563568B4E4B}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
-DefaultDirName={localappdata}\Programs\Keep It Digital\RAM Limiter
+DefaultDirName={localappdata}\Programs\KeepItDigital
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir={#OutputDir}
-OutputBaseFilename=Keep-It-Digital-RAM-Limiter-Setup
+OutputBaseFilename=KeepItDigital-Setup
 SetupIconFile=..\DiscordRamLimiter\Assets\keepitdigital.ico
 UninstallDisplayIcon={app}\{#AppExeName}
 Compression=lzma2
@@ -47,6 +47,7 @@ Source: "{#SourceDir}\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 [InstallDelete]
 Type: files; Name: "{app}\KeepItDigitalDiscordRamLimiter.exe"
+Type: files; Name: "{app}\KeepItDigitalRamLimiter.exe"
 Type: files; Name: "{app}\DiscordRamLimiter.exe"
 Type: files; Name: "{autoprograms}\Keep It Digital Discord RAM Limiter.lnk"
 Type: files; Name: "{autodesktop}\Keep It Digital Discord RAM Limiter.lnk"
@@ -56,10 +57,13 @@ Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExeName}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Registry]
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "KeepItDigitalRamLimiter"; ValueData: """{app}\{#AppExeName}"" --minimized"; Flags: uninsdeletevalue; Check: ShouldMigrateStartup
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "KeepItDigitalRamLimiter"; ValueData: """{app}\{#AppExeName}"" --minimized"; Flags: uninsdeletevalue; Tasks: startup; Check: not IsUpdateMode
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "KeepItDigital"; ValueData: """{app}\{#AppExeName}"" --minimized"; Flags: uninsdeletevalue; Check: ShouldMigrateStartup
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "KeepItDigital"; ValueData: """{app}\{#AppExeName}"" --minimized"; Flags: uninsdeletevalue; Tasks: startup; Check: not IsUpdateMode
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: none; ValueName: "DiscordRamLimiter"; Flags: deletevalue
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: none; ValueName: "KeepItDigitalDiscordRamLimiter"; Flags: deletevalue
+Root: HKCU; Subkey: "Software\Classes\keepitdigital"; ValueType: string; ValueName: ""; ValueData: "URL:KeepItDigital Protocol"; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Classes\keepitdigital"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Classes\keepitdigital\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#AppExeName}"" ""%1"""; Flags: uninsdeletevalue
 
 [Run]
 Filename: "{app}\{#AppExeName}"; Description: "Launch {#AppName}"; Flags: nowait postinstall skipifsilent; Check: not IsUpdateMode

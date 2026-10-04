@@ -1,6 +1,6 @@
 {
-  "version": "2.0.3",
-  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.3/KeepItDigital-Setup.exe",
-  "changelog": "KeepItDigital 2.0.3 — Release update\n\n- New clean KeepItDigital application shell and navigation.\n- Supabase account creation and sign-in.\n- Email verification with desktop callback support.\n- Gmail SMTP support for authentication emails.\n- Modern rounded UI, custom dialogs and improved animations.\n- Automatic update checking at application startup.\n- New single-executable portable build.\n- New Windows installer build.\n- Improved release and deployment workflow.",
-  "sha256": "C938A605AE351AFE2FC8E7FF580B81972457E9A8A97D9F878E5B22C57C5331DF"
+  "version": "2.0.0",
+  "changelog": "Added an optional 99% system-memory emergency shutdown guard with a 30-second trigger and cancellable 60-second countdown.\nThe guard is disabled by default, clearly warns about unsaved work before it can be enabled, and preserves its setting across updates.",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.0/KeepItDigital-Setup.exe",
+  "sha256": "REPLACE_WITH_RELEASE_SHA256"
 }
