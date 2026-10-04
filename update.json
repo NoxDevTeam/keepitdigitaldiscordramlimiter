@@ -1,6 +1,5 @@
-﻿{
-    "version":  "2.0.0",
-    "changelog":  "KeepItDigital 2.0.0 â€” expanded control center\n\n- New clean KeepItDigital application shell and navigation.\n- Supabase account creation/sign-in required before the workspace opens.\n- Profile/settings page with Supabase display-name updates.\n- Original RAM limiter retained with tray, startup, update and emergency protection features.\n- Fast SSH with encrypted saved profiles, optional key paths, extra arguments, multiple sessions and quick command bar.\n- Startup Apps manager for current-user Windows startup entries and custom EXEs.\n- Windows DPAPI protection for local sessions and SSH profiles.",
-    "downloadUrl":  "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.0/KeepItDigital-Setup.exe",
-    "sha256":  "EA609F979212505BD8E69BD0EE1310426C58E1AFB79B6A17A3FB0A46558E39A2"
+{
+  "version": "2.0.3",
+  "downloadUrl": "https://github.com/NoxDevTeam/keepitdigitaldiscordramlimiter/releases/download/v2.0.3/KeepItDigital-Setup.exe",
+  "changelog": "KeepItDigital 2.0.3 — Release update\n\n- New clean KeepItDigital application shell and navigation.\n- Supabase account creation and sign-in.\n- Email verification with desktop callback support.\n- Gmail SMTP support for authentication emails.\n- Modern rounded UI, custom dialogs and improved animations.\n- Automatic update checking at application startup.\n- New single-executable portable build.\n- New Windows installer build.\n- Improved release and deployment workflow."
 }
